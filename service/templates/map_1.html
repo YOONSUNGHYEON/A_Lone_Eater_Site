@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--버튼 css-->
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- 폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+    <style>
+        .c{font-family: 'Nanum Myeongjo', serif;}
+    </style>
+    <title>{{config.title}}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+    <link href="/static/css/style.css">
+
+    
+</head>
+
+<body id="map_1_page">
+
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+    
+    <!-- 왼쪽 사이드바 메뉴 -->
+    <nav id="sidebar-wrapper" class="">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+            <a class="js-scroll-trigger" href="#page-top">슬기로운 혼밥생활</a>
+            </li>
+    
+            {% if 'user_id' in session %}
+                <li class="sidebar-nav-item">
+                    <a  class="js-scroll-trigger" href='{{ url_for("userbp.logout") }}'>로그아웃</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href='{{ url_for("mypagebp.mypage") }}'>마이페이지</a>
+                </li>
+            {% else %}
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href='{{ url_for("userbp.login") }}'>로그인</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href='{{ url_for("joinbp.join") }}'>회원가입</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href='{{ url_for("home") }}'> 홈 </a>
+                </li>
+            {% endif %}
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger" href='{{ url_for("hbtype_explain") }}'> 혼밥유형 알아보기 </a>
+                </li>
+        </ul>
+    </nav>    
+
+    
+
+    <!-- 지도 첫 번째 페이지 -->
+
+    <!-- 상단 이미지 -->
+    <img src="/static/img/honbab_upper.jpg" width=100%>
+
+
+<body ng-controller="mainCtrl" class="c">
+    <script>
+        function map_sel_seoul(val) {
+            document.location.href = '/user/map2/' + val
+        }//
+        function map_sel_others(val) {
+            document.location.href = '/user/ranking/' + val
+        }//
+    </script>
+
+    <!-- 전국 단위 지도 버튼 -->
+    
+    <!-- section class=" c" id='map_1'                                         되돌리기!!!!!!!!!!!!!!!!!!!!!!!!!!!!--> 
+    <section  id='map_1'>
+        <div class="container text-center">
+        <!-- config폴더의 Webconfig객체에서 확인 가능 -->
+        <!--<h1>{{config.page_title.MAP_1}}</h1>-->
+        <br><br>
+        <h1 class="mx-auto mb-5">혼밥하실 지역을 선택해주세요</h1>
+        <br><br>
+        <!-- 전국 지도 사진 -->
+        <!--<img src="/static/img/korea_map2.jpg" width=45% style="position: relative; left: 25%;">-->
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{font-size:20px; padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:rgb(255, 255, 255);}
+            .tg th{font-size:20px; font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:rgb(255, 255, 255);}
+            .tg .tg-d5a7{color:#333333;border-color:#ffffff;text-align:center;vertical-align:middle;border-color:rgb(255, 255, 255)}
+            /*.tg .tg-i1fj{background-color:#ffffff;color:#333333;border-color:#000000;vertical-align:top}*/
+            .tg .tg-i1fj{vertical-align:top; border-color:rgb(255, 255, 255)}
+        </style>
+
+        <!-- 우선 하드코딩 ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ     -->
+        <table class='tg td c'style="width: 900px" align='center';>
+            <colgroup>
+            <col style="width: 150px">
+            <col style="width: 300px">
+            <col style="width: 150px">
+            </colgro600
+                <tr>
+                <th class="tg-i1fj">
+                    <button onclick='map_sel_others(this.value)' class='btn-1' value=31 >
+                        경기도
+                    </button>
+                </th>
+                <th class="tg-d5a7" rowspan="9">
+                    <img src="/static/img/korea_map4.jpg" width=80%>
+                </th>
+                <th class="tg-i1fj">
+                    <button onclick='map_sel_others(this.value)' class='btn-1' value=32 height=25% width=25%>
+                        강원도
+                    </button>
+                </th>
+                </tr>
+
+                <tr>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_seoul(this.value)' class='btn-1' value=11 height=25% width=25%>
+                                서울특별시
+                        </button>
+                    </td>
+                    <td class="tg-i1fj">
+                            <button onclick='map_sel_others(this.value)' class='btn-1' value=23 height=25% width=25%>
+                                    인천광역시
+                            </button>                        
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=33 height=25% width=25%>
+                                충청북도
+                        </button>
+                    </td>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=34 height=25% width=25%>
+                                충청남도
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=29 height=25% width=25%>
+                            세종특별시
+                        </button>
+                    </td>
+
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=25  height=25% width=25%>
+                            대전광역시
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=37 height=25% width=25%>
+                            경상북도
+                        </button>
+                    </td>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=38  height=25% width=25%>
+                            경상남도
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=22 height=25% width=25%>
+                            대구광역시
+                        </button>
+                    </td>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=26  height=25% width=25%>
+                            울산광역시
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=25 height=25% width=25%>
+                            전라북도
+                        </button>
+                    </td>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=26  height=25% width=25%>
+                            전라남도
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=24 height=25% width=25%>
+                            광주광역시
+                        </button>
+                    </td>
+                    <td class="tg-i1fj">
+                        <button onclick='map_sel_others(this.value)' class='btn-1' value=21  height=25% width=25%>
+                            부산광역시
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                <td class="tg-i1fj">
+                    <button onclick='map_sel_others(this.value)' class='btn-1' value=39  height=25% width=25%>
+                        제주도
+                    </button>                    
+                </td>
+                <td class="tg-i1fj"></td>
+                </tr>
+        </table>    
+
+
+        <!-- 전국 지역 버튼 -->
+        <!-- {% for i in sidos: %}
+            {% if i['sido_no'] == 11: %}
+            <button onclick='map_sel_seoul(this.value)' class='map1_sido btn-1' id='seoul_sido_no' value="{{i['sido_no']}}">
+                서울선택
+            </button>
+            {% else %}
+            <button onclick='map_sel_others(this.value)' class='map1_sido' value="{{i['sido_no']}}">{{i['sido_name']}} 
+                선택
+            </button>
+            {% endif %}
+        {% endfor %}-->
+        </div>
+    </section>
+
+
+
+
+    <!-- Footer -->
+    <!-- 페이지 하단의 3개 버튼모양 -->
+    <footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline mb-5">
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-facebook"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-twitter"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white" href="#">
+                        <i class="icon-social-github"></i>
+                    </a>
+                </li>
+            </ul>
+            <p class="text-muted small mb-0">Copyright &copy; Your Website 2018</p> 
+        </div>
+    </footer>
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Plugin JavaScript -->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    
+    <!-- Custom scripts for this template -->
+    <script src="/static/js/stylish-portfolio.min.js"></script>
+
+</body>
+
+</html>

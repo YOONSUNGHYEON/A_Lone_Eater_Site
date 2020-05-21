@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+
+      <title>{{config.title}}</title>
+
+      <!-- Bootstrap Core CSS -->
+      <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+      <!-- Custom Fonts -->
+      <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+      <link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+      <!-- Custom CSS -->
+      <link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+      <link href="/static/css/style.css">
+      <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+      <style>
+          .c{font-family: 'Nanum Myeongjo', serif;}
+      </style>
+
+  </head>
+
+  <body id="page-top">
+
+      <a class="menu-toggle rounded" href="#">
+          <i class="fas fa-bars"></i>
+      </a>
+      
+      <!-- 왼쪽 사이드바 메뉴 -->
+      <nav id="sidebar-wrapper" class="">
+          <ul class="sidebar-nav">
+              <li class="sidebar-brand">
+              <a class="js-scroll-trigger c" href="#page-top">슬기로운 혼밥생활</a>
+              </li>
+      
+              {% if 'user_id' in session %}
+                <li class="sidebar-nav-item">
+                    <a  class="js-scroll-trigger c" href='{{ url_for("userbp.logout") }}'>로그아웃</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger c" href='{{ url_for("mypagebp.mypage") }}'>마이페이지</a>
+                </li>
+              {% else %}
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger c" href='{{ url_for("userbp.login") }}'>로그인</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger c" href='{{ url_for("joinbp.join") }}'>회원가입</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger c" href='{{ url_for("home") }}'> 홈 </a>
+                </li>
+              {% endif %}
+                <li class="sidebar-nav-item">
+                    <a class="js-scroll-trigger c" href='{{ url_for("hbtype_explain") }}'> 혼밥유형 알아보기 </a>
+                </li>
+          </ul>
+      </nav>    
+
+<!-- **************************************************** -->
+
+<!-- Header -->
+
+<header class="masthead">
+    <div class="container text-center my-auto">
+  
+        <!-- 슬기로운 혼밥생활 -->
+        <div align='center' style="position: relative; top:5%;" >
+            <img src="../../static/img/honbab_logo.png" width='25%'>
+        </div>
+
+        <!-- 혼밥러들이여 슬로건 -->
+        <div align='center' style="position: relative; bottom: 20%;">
+            <img src='../../static/img/honbab_title.png' width=40%>
+        </div>
+        <br>
+        <!-- 혼밥하러 가기 버튼 -->
+        <a href='#hb-type-explain' class='js-scroll-trigger c'>
+        <div align='center' style="position: relative; bottom:10%" >
+            <img src='../../static/img/honbab_go_button.png' width=20% >
+        </div>
+        </a>
+
+        <!-- 혼밥유형 설명 버튼 -->
+        <!--<div class="row" align='center'>
+            <div align='center' class="col-md-3 col-sm-3 col-xs-6" style="position: relative; left:425px; bottom:5%"> 
+                <a href='#hb-type-explain' class="btn btn-xxl animated-button thar-one js-scroll-trigger c">혼밥유형설명</a>
+            </div>
+        </div>-->
+    </div>
+</header>
+<!-- About -->
+<!-- <section class="content-section bg-light" id="hb-type-explain"> -->
+
+<header class="masthead" id="hb-type-explain">
+    <div class="container text-center">
+        <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!--소제목-->
+            <h2 class="panel-title c">혼밥 유형 설명</h2>
+            <p class="lead mb-5 c">저희가 만든 혼밥유형에 대해 설명해드리겠습니다</p>
+
+            <!-- 사람3명 이미지 -->
+            <div align='center' >
+                <img src="/static/img/people.png" height=70% width=70%>
+            </div>                
+            <br>
+            <!-- 혼밥유형 설명 이미지 -->
+            <div align='center' >
+                <img src="/static/img/normal_eater.png" height=25% width=25%>
+                <img src="/static/img/taste_eater.png" height=25% width=25%>
+                <img src="/static/img/mood_eater.png" height=25% width=25%>
+            </div>                   
+            <br>
+            
+            <!-- 혼밥하러 가기 버튼 -->
+            <div align='center' class="col-md-3 col-sm-3 col-xs-6" style="position: relative; left:350px; bottom: 20px;"> 
+                <a href='{{ url_for( "userbp.map_1") }}' class="btn btn-xl animated-button thar-one js-scroll-trigger c">
+                    혼밥하러 가기
+                </a>
+            </div>
+            <!--
+            <a class="btn btn-dark btn-xl js-scroll-trigger" href='{{ url_for( "userbp.map_1") }}'>혼밥하러가기</a>
+        -->
+        </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Footer -->
+<footer class="footer text-center">
+    <div class="container">
+        <ul class="list-inline mb-5">
+            <li class="list-inline-item">
+                <a class="social-link rounded-circle text-white mr-3" href="#">
+                    <i class="icon-social-facebook"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="social-link rounded-circle text-white mr-3" href="#">
+                    <i class="icon-social-twitter"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="social-link rounded-circle text-white" href="#">
+                    <i class="icon-social-github"></i>
+                </a>
+            </li>
+        </ul>
+        <p class="text-muted small mb-0">Copyright &copy; Your Website 2018</p> 
+    </div>
+</footer>
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Plugin JavaScript -->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    
+    <!-- Custom scripts for this template -->
+    <script src="/static/js/stylish-portfolio.min.js"></script>
+
+  </body>
+
+</html>

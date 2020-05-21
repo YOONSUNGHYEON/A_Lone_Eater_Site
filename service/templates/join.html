@@ -1,0 +1,298 @@
+<!doctype html>
+
+<html lang="ko" ng-app="form-demo-app">
+	<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<meta name="description" content="">
+			<meta name="author" content="">
+			
+			<title>{{config.title}}</title>
+			
+			<!-- Bootstrap Core CSS -->
+			<link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+			
+			
+			<!-- Custom Fonts -->
+			<link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+			<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+			<link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+        	<style>
+			.c{font-family: 'Nanum Myeongjo', serif;
+			 font-size:large;
+			}
+        	</style>
+			<!-- Custom CSS -->
+			<link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+			<style type="text/css">
+				#wrapper {margin : 0 auto ;}
+			</style>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<style>
+			.container{
+				margin-top: 20px;
+			}
+			input.ng-invalid {
+				border: 5px solid red;
+			}
+		</style>
+		<style>
+			.d{
+				color:lightgray;
+				background-image: url('../static/img/honbab_upper.jpg');
+				background-size: cover;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script>
+			//$(function() {
+				// alert('ssfsdf')
+			//});
+
+			// 시도를 선택하면 그에 맞춰 시군구가 나오도록 하는 함수
+			function sel_sido() {
+				var sido = $('#sido').val()
+				 //alert(sido)
+				$.get('/sigungu/' + sido, function(data) {
+					data2 = []
+					var sgg_list = eval(data)
+					var html_doc = ''
+					// console.log( sgg_list )
+					for(var i = 0 ; i < sgg_list.length ; i++) {
+						//console.log(sgg_list[i].sgg_name)
+						//data2.push(sgg_list[i].sgg_name)
+						var sggName = sgg_list[i].sgg_name
+						var sggNo = sgg_list[i].sgg_no
+						html_doc += '<option value="' + sggNo + '">' + sggName + '</option>'
+					}
+					$('#sgg').html(html_doc)
+				})
+			}//
+
+
+			// 회원가입 할 때 입력사항을 모두 입력하도록 유도하는 함수
+			function check() {
+				if(signUpForm.mem_id.value == '') {
+					alert('아이디를 입력해주세요.');
+					signUpForm.mem_id.focus();
+					return;
+				}
+				if(signUpForm.mem_nickname.value == '') {
+					alert('닉네임을 입력해주세요.');
+					signUpForm.mem_nickname.focus();
+					return;
+				}
+				if(signUpForm.mem_password.value == '') {
+					alert('비밀번호를 입력해주세요.');
+					signUpForm.mem_password.focus();
+					return;
+				}
+				if(signUpForm.mem_gender.value == '') {
+					alert('성별을 선택해주세요.');
+					return;
+				}
+				if(signUpForm.mem_age.value == '') {
+					alert('연령을 선택해주세요.');
+					return;
+				}
+				if(signUpForm.hb_id.value == '') {
+					alert('혼밥타입을 선택해주세요.');
+					return;
+				}
+				if(signUpForm.sgg_no.value == '') {
+					alert('구/군/구를 선택해주세요.');
+					return;
+				}				
+				signUpForm.submit()
+			}
+			
+			//아이디 중복 체크 함수
+			function repeat_id_check(){
+				var check_id = signUpForm.mem_id
+				var mem_id = check_id.value
+				if(mem_id == '') {
+					alert('중복 확인할 아이디를 입력해주세요');
+					check_id.focus();
+					return;
+				}
+				$.get('/join/id_check/' + mem_id, function(data){
+					var a = eval(data)
+					//alert(a.cnt)
+					if(a.cnt == 1) {
+						alert('아이디가 이미 존재합니다. 새로운 아이디를 입력하세요.');
+						signUpForm.join.disabled='disabled' //회원가입 버튼 누르지 못하도록
+						check_nickname.focus();
+					} else {
+						alert('사용 가능한 아이디입니다!');
+						signUpForm.join.disabled='' // 회원가입 버튼 누를 수 있도록
+					}
+				})
+			}//
+
+			// 닉네임 중복 체크 함수
+			function repeat_nickname_check(){
+				var check_nickname = signUpForm.mem_nickname
+				var mem_nickname = check_nickname.value
+				if(mem_nickname == '') {
+					alert('중복 확인할 닉네임을 입력해주세요');
+					check_nickname.focus();
+					return;
+				}
+				$.get('/join/nickname_check/' + mem_nickname, function(data){
+					var a = eval(data)
+					//alert(a.cnt)
+					if(a.cnt == 1) {
+						alert('닉네임이 이미 존재합니다. 새로운 닉네임을 입력하세요');
+						signUpForm.join.disabled='disabled'
+					} else {
+						alert('사용 가능한 닉네임입니다!');
+						signUpForm.join.disabled=''
+					}
+				})
+			}//
+		</script>
+	</head>
+
+<!--여기까지 헤드-->
+	<body ng-controller="mainCtrl">
+
+		<div class="d">
+			<a href="{{url_for('home')}}"><img src ="/static/img/mainlogo.png" width="60px" height="60px" vspace="35px" hspace="30px" title="홈으로 가기"></a>
+
+		</div>
+		  
+
+
+		<body ng-controller="mainCtrl">
+			<div class="container c" id="wrap">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<form name="signUpForm" class="form" role="form" action="{{url_for('joinbp.join')}}" method='POST'>
+							<!-- 제목 -->
+							<h1 align=center style="font-weight:bold;">회원 가입</h1>
+							<br>
+							<center>
+								<img src="/static/img/people.png" width=70%>
+							</center>
+							<br>
+							<br>
+							<label> 슬기로운 혼밥생활 참여하기 </label>
+
+							<!-- ID입력창 -->
+							<input type="text" name="mem_id" class="form-control input-mm" placeholder="아이디 [중복확인을 해주세요] " required/>
+							<button  type="button" class="btn btn-default btn-xs pull-right" onclick="repeat_id_check()">
+								ID 중복확인
+							</button>
+							<br>
+
+							<!-- 닉네임 입력창 -->
+							<input type="text" name="mem_nickname" class="form-control input-mm" placeholder="닉네임 [중복확인을 해주세요]" required/>
+							<button type="button" class="btn btn-default btn-xs pull-right" onclick="repeat_nickname_check()">
+								닉네임 중복확인
+							</button>
+							<br>
+
+							<!-- 비밀번호 입력창 -->
+							<input type="password" name="mem_password" class="form-control input-mm" placeholder="비밀번호" required />
+							<br><br>
+							
+							<!-- 회원정보 입력창 -->
+							<label > 회원님의 모든 것 </label>
+							<div class="selectbox">
+								<select name="mem_gender" class="form-control input-mm" required>
+									<option value="" selected disabled hidden> 회원님의 성별 </option>
+									<option value=0> 남성  </option>
+									<option value=1> 여성  </option>							
+								</select>
+							</div>
+							<br>
+							<div class="selectbox">
+								<select name="mem_age" class="form-control input-mm" required>
+									<option value="" selected disabled hidden> 회원님의 연령대 </option>
+									<option value=10> 10대 이하 </option>
+									<option value=20> 20대 	  </option>
+									<option value=30> 30대      </option>
+									<option value=40> 40대      </option>
+									<option value=50> 50대      </option>
+									<option value=60> 60대 이상 </option>								
+								</select>
+							</div>
+							<br>
+							<div class="selectbox">
+								<select name="hb_id" class="form-control input-mm" required>
+									<option value="" selected disabled hidden> ★회원님의 혼밥 타입 </option>
+									<option value=1> 일반인파  </option>
+									<option value=2> 분위기파  </option>
+									<option value=3> 미식가파  </option>
+								</select>
+							</div>
+							<br>
+							<br>
+
+							<!-- 회원 지역 입력창 -->
+							<label> 회원님의 거주 지역 </label>
+							<div class="selectbox">
+								<select name="sido_no" class="form-control input-mm" id='sido' onchange="sel_sido()">
+									{% for i in sidos %}
+									<option value="{{i['sido_no']}}">{{i['sido_name']}}</option>
+									{% endfor %}
+								</select>
+								<br>
+								<select name="sgg_no" id="sgg" class="form-control input-mm">
+									{% for j in sigungus %}
+									<option value="{{j['sgg_no']}}">{{j['sgg_name']}}</option>
+									{% endfor %}
+								</select>	
+							</div>
+							<br>
+
+							<!-- 회원가입 버튼 -->
+							<button name="join" class="btn btn-lg btn-primary btn-block signup-btn" type="button" onclick="check()" disabled>
+								회원가입
+							</button>
+
+						</form>
+						<div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- Footer -->
+	<!-- 페이지 하단에 연결 버튼 넣을지말지 선택할 것-->
+
+	<footer class="footer text-center">
+			<div class="container">
+				<ul class="list-inline mb-5">
+					<li class="list-inline-item">
+						<a class="social-link rounded-circle text-white mr-3" href="#">
+							<i class="icon-social-facebook"></i>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="social-link rounded-circle text-white mr-3" href="#">
+							<i class="icon-social-twitter"></i>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="social-link rounded-circle text-white" href="#">
+							<i class="icon-social-github"></i>
+						</a>
+					</li>
+				</ul>
+				<p class="text-muted small mb-0">Copyright &copy; Your Website 2018</p> 
+			</div>
+		</footer>
+    
+		<!-- Bootstrap core JavaScript -->
+		<script src="/static/vendor/jquery/jquery.min.js"></script>
+		<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		
+		<!-- Plugin JavaScript -->
+		<script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+		
+		<!-- Custom scripts for this template -->
+		<script src="/static/js/stylish-portfolio.min.js"></script>
+	</body>
+</html> 

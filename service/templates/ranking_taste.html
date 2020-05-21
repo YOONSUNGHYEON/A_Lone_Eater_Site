@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{config.title}}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+    <!-- 우리 글씨체 -->
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+    <style>
+        .c{
+            font-family: 'Nanum Myeongjo', serif;
+        }
+    </style>
+    <style>
+        .d{
+            color:lightgray;
+            background-image: url('/static/img/honbab_upper.jpg');
+            background-size: cover;
+        }
+    </style>
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="/static/js/stylish-portfolio.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+    <script>
+        function move_to_restaurantDetail(val) {
+            document.location.href = '/user/restaurantDetail/' + val
+        }//
+        
+        $(document).ready(function() {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+        });
+
+    </script>
+    <style>
+        body{
+            font-family: 'Nanum Myeongjo', serif;
+            
+        }
+        #want{
+            text-align:center;
+            vertical-align: bottom;
+        }
+        .cell_rest_taste_score{
+            
+            font-weight: bold;
+            color: rgba(222,106,15);
+        }
+
+        .cell_rest_detail{
+            width: 15%;
+        }
+        .cell_rest_name{
+            font-weight: bold;
+            
+        }
+        .row_first{
+            font_size: 130%;
+        }
+
+           
+        span {        
+            display: table-cell;   
+            text-align:center;            
+            width: 100%;       
+            height: 100%;        
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="d">
+        <div >
+            <a href="{{url_for('home')}}"><img src ="/static/img/mainlogo.png" style="margin-left: 20px;" width="60px" height="60px" vspace="35px" title="홈으로 가기"></a>
+            <a style="float:right; margin-top:98px; margin-right:50px; font-size: larger" class="c" href="{{url_for('userbp.logout')}}">로그아웃</a>
+            <a style="float:right; margin-top:98px; margin-right:60px; font-size: larger" class="c" href="{{url_for('mypagebp.mypage')}}">마이페이지</a>
+        </div>
+
+    </div>
+    <br>
+    <div id ="ranking_page" align="center">
+    <h1 style="font-size:200%" > {{ sido.sido_name}} {{ sigungu.sgg_name }} 혼밥 맛집 순위 </h1>
+    <!-- 랭킹 표 id = 'ranking' -->
+    </div>
+    <br>
+    <br>
+    <div align="center">
+        <img src="/static/img/flower.png" width="3%" >
+        <img src="/static/img/flower.png" width="3%" >
+        <img src="/static/img/flower.png" width="3%" >
+    </div>
+    <br>
+    <br>
+    <div>
+            <div class="">
+                <table class="table table-hover" id="want" valign=middle>
+                    <thead style="font-size: 22px;">
+                        <tr>
+                            <th width="5%"></th>
+                            <th width="15%"></th>
+                            <th width="20%"></th>
+                            <th class="row_first" width="15%">일반인파</th>
+                            <th class="row_first" width="15%">미식가파</th>
+                            <th class="row_first" width="15%">분위기파</th>
+                            <th width="15%"></th>
+                        </tr>
+                    </thead>
+                        <tbody class="table span" style="font-size: 22px;">
+        
+                            {% for each in restInfo:%}
+                                <tr valign=middle>
+                                    <td><span>{{ loop.index }}</span></td>
+                                    <td class='cell_rest_picture' ><img src='{{ each["imgLink"] }}' /> </td>
+                                    <td class='cell_rest_name' valign=middle><div style="margin-top: 30%; font-size: 30px">{{ each['restName'] }}</div></td>
+                                    <!-- 일단 일반인파는 다이닝 코드의 평점으로 받기 나중에 'rest_normal_score'로 수정-->   
+                                    <td class='cell_rest_normal_score'><div style="margin-top: 45%">{{ each['score'] }}점</div></td>
+                                    <td class='cell_rest_taste_score'><div style="margin-top: 45%">{{ each['rest_taste_score'] }}점</div></td>        
+                                    <td class='cell_rest_mood_score'><div style="margin-top: 45%">{{ each['rest_mood_score'] }}점</div></td>
+                                    <!-- 이름으로 해도 좋을 것 같아서... -->
+                                    <!--<td> <a href='/info/{{each.rest_Name}}'>더보기</a> </td> -->
+                                    <td class='cell_rest_detail'><div style="margin-top: 40%"><a href="/user/restaurantDetail/{{each.rest_id}}"><img src="/static/img/next.png" height=40% width=50% ></a></div></td> 
+                                    <!-- <td> <button onclick='move_to_restaurantDetail(this.value)' value='{{each.rest_id}}'>{{each['restName']}} 선택</button> </td> -->
+                                    
+                                </tr>
+                                
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+ 
+
+
+    
+
+
+<!-- Footer -->
+<!-- 페이지 하단에 연결 버튼 넣을지말지 선택할 것-->
+
+<footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline mb-5">
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-facebook"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-twitter"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white" href="#">
+                        <i class="icon-social-github"></i>
+                    </a>
+                </li>
+            </ul>
+            <p class="text-muted small mb-0">Copyright &copy; Your Website 2018</p> 
+        </div>
+    </footer>
+
+</body>
+
+</html>

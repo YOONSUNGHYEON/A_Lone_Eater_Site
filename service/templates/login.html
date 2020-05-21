@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" ng-app="form-demo-app">
+	<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<meta name="description" content="">
+			<meta name="author" content="">
+			
+			<title>{{config.title}}</title>
+			
+			<!-- Bootstrap Core CSS -->
+			<link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+			
+			
+			<!-- Custom Fonts -->
+			<link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+			<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+			<link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+        	<style>
+			.c{font-family: 'Nanum Myeongjo', serif;
+			 font-size:large;
+			}
+        	</style>
+			<!-- Custom CSS -->
+			<link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<style>
+			.container{
+				margin-top: 20px;
+			}
+			input.ng-invalid {
+				border: 5px solid red;
+			}
+		</style>
+		<style>
+			.d{
+				color:lightgray;
+				background-image: url('../static/img/honbab_upper.jpg');
+				background-size: cover;
+				}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+
+            function joinPage() {
+				document.location.href = '/join';
+            }
+
+        </script>
+	</head>
+
+
+	<div class="d">
+			<a href="{{url_for('home')}}"><img src ="/static/img/mainlogo.png" width="60px" height="60px" vspace="35px" hspace="30px" title="홈으로 가기"></a>
+	</div>
+	<body ng-controller="mainCtrl">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+                    <form class="form c" role="form" action='{{ url_for("userbp.login") }}' method='POST' name="form-login">
+						<!-- 제목 -->
+						<h1 align=center style="font-weight:bold;">로그인</h1>
+						<!--<label> 슬기로운 혼밥생활 참여하기 </label>-->
+						<br>
+						<center>
+							<img src="/static/img/people.png" width=70%>
+						</center>
+                        <br><br>
+
+						<!-- ID 입력창 -->
+						<center>
+                        <input class="form-control input-mm" style="width: 400px;"placeholder="아이디" name="mem_id" type="text" required autofocus>
+						</center>
+						<br>
+
+						<!-- 비밀번호 입력창 -->
+						<center>
+                        <input class="form-control input-mm"  style="width: 400px;" placeholder="비밀번호" name="mem_password" type="password" value="" required>
+						</center>
+						<br><br>
+						
+						<!-- 로그인 버튼 -->
+                        <button class="btn btn-lg btn-primary btn-block signup-btn">로그인</button>
+                        <button type="button" onclick="joinPage()" class="btn btn-lg btn-primary btn-block signup-btn">회원가입</button>
+
+					</form>
+					<div>
+ 					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html> 

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko" ng-app="form-demo-app">
+	<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<meta name="description" content="">
+			<meta name="author" content="">
+			
+			<title>{{config.title}}</title>
+			
+			<!-- Bootstrap Core CSS -->
+			<link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+			
+			
+			<!-- Custom Fonts -->
+			<link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+			<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+			<link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+        	<style>
+			.c{font-family: 'Nanum Myeongjo', serif;
+			 font-size:large;
+			}
+        	</style>
+			<!-- Custom CSS -->
+			<link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+			<style type="text/css">
+				#wrapper {margin : 0 auto ;}
+			</style>
+			<style>
+				.d{
+					color:lightgray;
+					background-image: url('../static/img/honbab_upper.jpg');
+					background-size: cover;
+				}
+				</style>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<style>
+			.container{
+				margin-top: 20px;
+			}
+			input.ng-invalid {
+				border: 5px solid red;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script>
+			$(function() {
+				// alert('ssfsdf')
+			});
+			function sel_sido() {
+				var sido = $('#sido').val()
+				//alert(sido)
+				
+				$.get('/sigungu/' + sido, function(data) {
+					data2 = []
+					var a = eval(data)
+					var html_doc = ''
+					//console.log(a)
+					for(var i =0; i < a.length; i++) {
+						//console.log(a[i].sgg_name)
+						//data2.push(a[i].sgg_name)
+						var b = a[i].sgg_no
+						var c = a[i].sgg_name
+						html_doc += '<option value="' + b + '">' + c + '</option>'
+					}
+					$('#gu').html(html_doc)
+				})
+			}//
+
+			function check() {
+				if(signUpForm.mem_id.value == '') {
+					alert('아이디를 입력해주세요.');
+					signUpForm.mem_id.focus();
+					return;
+				}
+				if(signUpForm.mem_nickname.value == '') {
+					alert('닉네임을 입력해주세요.');
+					signUpForm.mem_nickname.focus();
+					return;
+				}
+				if(signUpForm.mem_password.value == '') {
+					alert('비밀번호를 입력해주세요.');
+					signUpForm.mem_password.focus();
+					return;
+				}
+				if(signUpForm.mem_gender.value == '') {
+					alert('성별을 선택해주세요.');
+					return;
+				}
+				if(signUpForm.mem_age.value == '') {
+					alert('연령을 선택해주세요.');
+					return;
+				}
+				if(signUpForm.hb_id.value == '') {
+					alert('혼밥타입을 선택해주세요.');
+					return;
+				}
+				if(signUpForm.sgg_no.value == '') {
+					alert('구/군/구를 선택해주세요.');
+					return;
+				}						
+				signUpForm.submit()
+			}//
+		</script>
+	</head>
+	<div class="d">
+		<a href="{{url_for('home')}}"><img src ="/static/img/mainlogo.png" width="60px" height="60px" vspace="35px" hspace="30px" title="홈으로 가기"></a>
+		<a style="float:right; margin-top:98px; margin-right:50px; font-size: larger; font-color" class="c" href="{{url_for('userbp.logout')}}">로그아웃</a>
+	</div>
+        <body ng-controller="mainCtrl" class="c">  
+		<div class="container c" id="wrap">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<form name="signUpForm" class="form" role="form" action="{{url_for('mypagebp.myRevise')}}" method='POST'>
+						<br><br>
+						<h1 align=center style="font-weight:bold;">회원 정보 수정</h1>
+						<br><br>
+						<div class="form-group">
+							<label for="disabledSelect" style="font-weight:lighter;">아이디</label>
+							<input name="mem_id" class="form-control" id="disabledInput" type="text" value="{{row.mem_id}}" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label for="disabledSelect" style="font-weight:lighter;">닉네임</label>
+							<input name="mem_nickname" class="form-control" id="disabledInput" type="text" value="{{row.mem_nickname}}" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label for="disabledSelect" style="font-weight:lighter;">비밀번호</label>
+							<input type="password" name="mem_password" class="form-control input-mm" placeholder="비밀번호" required />
+						</div>
+						<div class="form-group">
+							<label for="disabledSelect" style="font-weight:lighter;">성별</label>
+							<br>
+							<label class="radio-inline" id="disabledSelect">
+								{% if row.mem_gender == 0: %}
+									<input type="radio" name="mem_gender" id="optionsRadiosInline2" disabled="disabled" value="0" checked="checked">남자
+									<input type="hidden" name="mem_gender" value="0">
+								{% else: %}
+									<input type="radio" name="mem_gender" id="optionsRadiosInline2" disabled="disabled" value="0" checked="">남자
+								{% endif %}
+							</label>
+							<label class="radio-inline">
+								{% if row.mem_gender == 1: %}
+									<input type="radio" name="mem_gender" id="optionsRadiosInline2" disabled="disabled" value="1" checked="checked">여자
+									<input type="hidden" name="mem_gender" value="1">
+								{% else: %}
+									<input type="radio" name="mem_gender" id="optionsRadiosInline2" disabled="disabled" value="1" checked="">여자
+								{% endif %}
+							</label>
+						</div>
+						<div class="form-group">
+						<label for="disabledSelect" style="font-weight:lighter;">혼밥타입</label>
+							<select name="hb_id" class="form-control input-mm" required>
+								<option value="1" {% if row.hb_id == 1: %} selected {% endif %}>  일반인파 </option>
+								<option value="2" {% if row.hb_id == 2: %} selected {% endif %}>  미식가파 </option>
+								<option value="3" {% if row.hb_id == 3: %} selected {% endif %}>  분위기파 </option>
+							</select>
+						</div>
+						<div class="form-group" >
+							<label for="disabledSelect" style="font-weight:lighter;">나이</label>
+							<div class="selectbox">
+									<select name="mem_age" class="form-control input-mm" required>
+											<option value="10" {% if row.mem_age == 10: %} selected {% endif %}> 10대 이하 </option>
+											<option value="20" {% if row.mem_age == 20: %} selected {% endif %}> 20대 	  </option>
+											<option value="30" {% if row.mem_age == 30: %} selected {% endif %}> 30대      </option>
+											<option value="40" {% if row.mem_age == 40: %} selected {% endif %}> 40대      </option>
+											<option value="50" {% if row.mem_age == 50: %} selected {% endif %}> 50대      </option>
+											<option value="60" {% if row.mem_age == 60: %} selected {% endif %}> 60대 이상 </option>
+									</select>
+							</div>
+						</div>
+						<div class="form-group" >
+							<label style="font-weight:lighter;"> 회원님의 거주 지역 수정</label>
+							<div class="selectbox">
+								<div class="selectbox">
+										<select name="sido_no" class="form-control input-mm" id='sido' onchange="sel_sido()">
+											{% for i in sidos %}
+											<option value="{{i['sido_no']}}" {% if i['sido_no'] == row.sido_no: %} selected {% endif %}>{{i['sido_name']}}</option>
+											{% endfor %}
+										</select>
+										<br>
+										<select name="sgg_no" id="gu" class="form-control input-mm">
+											{% for j in sigungus %}
+											<option value="{{j['sgg_no']}}" {% if j['sgg_no'] == row.sgg_no: %} selected {% endif %}>{{j['sgg_name']}}</option>
+											{% endfor %}
+										</select>
+								</div>
+							</div>
+						</div>
+						<br>
+						<br>
+						<center>
+						<button class="btn btn-xl animated-button thar-one js-scroll-trigger c" type="submit">정보수정 완료</button>
+						</center>
+                    </form>
+                    
+					<div>
+ 					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Footer -->
+<!-- 페이지 하단에 연결 버튼 넣을지말지 선택할 것-->
+
+<footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline mb-5">
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-facebook"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-twitter"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white" href="#">
+                        <i class="icon-social-github"></i>
+                    </a>
+                </li>
+            </ul>
+            <p class="text-muted small mb-0 c">Copyright &copy; Your Website 2018</p> 
+        </div>
+    </footer>
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Plugin JavaScript -->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    
+    <!-- Custom scripts for this template -->
+    <script src="/static/js/stylish-portfolio.min.js"></script>
+	</body>
+</html> 

@@ -1,0 +1,10 @@
+<script>
+    alert("{{ msg }}");    // 팝업 띠우기
+    {% if addr  %}
+        // 다른 페이지로 이동하기(정상케이스)
+        document.location.href = '{{ addr }}'; // 다른 페이지 이동
+    {% else %}
+        // 이전 페이지로 돌아가기(에러케이스)
+        history.back();         // 이전 페이지 이동
+    {% endif %}
+</script>

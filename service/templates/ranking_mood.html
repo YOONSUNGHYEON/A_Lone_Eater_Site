@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{config.title}}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+    <!-- 우리 글씨체 -->
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+    <style>
+        .c{
+            font-family: 'Nanum Myeongjo', serif;
+            text-align:center;
+        }
+    </style>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="/static/js/stylish-portfolio.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="/static/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+    <script>
+        function move_to_restaurantDetail(val) {
+            document.location.href = '/user/restaurantDetail/' + val
+        }//
+        
+        $(document).ready(function() {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+        });
+
+    </script>
+    <style>
+        .c{
+            font-family: 'Nanum Myeongjo', serif;
+            text-align:center;
+        }
+
+        .cell_rest_mood_score{
+            
+            font-weight: bold;
+            color: rgba(222,106,15);
+        }
+
+        .cell_rest_detail{
+            width: 15%;
+        }
+        .cell_rest_name{
+            
+            font-weight: bold;
+            vertical-align: middle;
+        }
+        .row_first{
+            font_size: 130%;
+        }
+
+           
+        span {        
+            display: table-cell;   
+            text-align:center;     
+            vertical-align:middle;       
+            width: 100%;       
+            height: 100%;        
+        }
+
+    </style>
+</head>
+<body>
+    <a class="menu-toggle rounded" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+    
+    <nav id="sidebar-wrapper" class="">
+        <ul class="sidebar-nav">
+            <br>
+            <li class="sidebar-brand">
+            <a class="js-scroll-trigger" href="#page-top">슬기로운 혼밥생활</a>
+            </li>
+    
+            {% if 'user_id' in session %}
+                <li class="sidebar-nav-item"><a  class="js-scroll-trigger" href='{{ url_for("userbp.logout") }}'>로그아웃</a></li>
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("mypagebp.mypage") }}'>마이페이지</a></li>
+            {% else %}
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("userbp.login") }}'>로그인</a></li>
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("joinbp.join") }}'>회원가입</a></li>
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("home") }}'> 홈 </a></li>
+            {% endif %}
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("hbtype_explain") }}'> 혼밥유형 알아보기 </a></li>
+            
+        </ul>
+    </nav>  
+    
+    <div>
+        <img src="/static/img/honbab_upper.jpg" height=100% width=100%>
+    </div>
+    <br>
+    <br>
+    <div id ="ranking_page" align="center">
+            <br>
+    <h1 class="c" style="font-size:170%" > {{ sido.sido_name}} {{ sigungu.sgg_name }} 혼밥 맛집 순위 </h1>
+    <!-- 랭킹 표 id = 'ranking' -->
+    </div>
+    <br>
+    <br>
+    <div align="center">
+        <img src="/static/img/flower.png" width="3%" >
+        <img src="/static/img/flower.png" width="3%" >
+        <img src="/static/img/flower.png" width="3%" >
+    </div>
+    <br>
+    <div class="c table">
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="5%"></th>
+                            <th width="15%"></th>
+                            <th width="20%"></th>
+                            <th class="row_first" width="15%">일반인파</th>
+                            <th class="row_first" width="15%">미식가파</th>
+                            <th class="row_first" width="15%">분위기파</th>
+                            <th width="15%"></th>
+                        </tr>
+                    </thead>
+                        <tbody class="table span" style="vertical-align:bottom;">
+        
+                            {% for each in restInfo:%}
+                                <tr>
+                                    <td><span>{{ loop.index }}</span></td>
+                                    <td class='cell_rest_picture'><span><img src='{{ each["imgLink"] }}' /> </span></td>
+                                    <td class='cell_rest_name'>{{ each['restName'] }}</td>
+                                    <!-- 일단 일반인파는 다이닝 코드의 평점으로 받기 나중에 'rest_normal_score'로 수정-->   
+                                    <td class='cell_rest_normal_score'>{{ each['score'] }}점</td>
+                                    <td class='cell_rest_taste_score'>{{ each['rest_taste_score'] }}점</td>        
+                                    <td class='cell_rest_mood_score'>{{ each['rest_mood_score'] }}점</td>
+                                    <!-- 이름으로 해도 좋을 것 같아서... -->
+                                    <!--<td> <a href='/info/{{each.rest_Name}}'>더보기</a> </td> -->
+                                    <td class='cell_rest_detail'><a href="/user/restaurantDetail/{{each.rest_id}}"><img src="/static/img/next.png" height=12% width=50% ></a></td> 
+                                    <!-- <td> <button onclick='move_to_restaurantDetail(this.value)' value='{{each.rest_id}}'>{{each['restName']}} 선택</button> </td> -->
+                                    
+                                </tr>
+                                
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+ 
+
+
+    
+
+
+<!-- Footer -->
+<!-- 페이지 하단에 연결 버튼 넣을지말지 선택할 것-->
+
+<footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline mb-5">
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-facebook"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-twitter"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white" href="#">
+                        <i class="icon-social-github"></i>
+                    </a>
+                </li>
+            </ul>
+            <p class="text-muted small mb-0">Copyright &copy; Your Website 2018</p> 
+        </div>
+    </footer>
+
+</body>
+
+</html>

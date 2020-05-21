@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>{{config.title}}</title>
+    
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+    <style>
+        body{font-family: 'Nanum Myeongjo', serif;}
+        .c{
+            color:lightgray;
+            background-image: url('../static/img/6(배경이미지).jpg');
+            background-size: cover;
+            padding-top: 1rem;
+            padding-bottom: 4rem;
+        }
+        #mainimg {
+            border-radius: 2%;
+            
+            
+        }
+        #fixed-menu {
+            width: 100%;
+            background-color:lightgray;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: inline-block;
+            margin-right: 30px;
+          }
+
+          #fixed-menu li {
+            display: inline-block;
+            margin-right: 30px;
+          }
+          #main-content {
+            width: 100%;
+            margin-top: 30px;
+          }
+    
+    </style>
+</head>
+
+<body>
+    
+    <div id ="restaurantDetail_sub">
+        <!--식당 정보 테이블-->
+        <div class="col-md-12 c"  style = "height: auto;  ">
+            <a href="{{url_for('home')}}"><img src="../static/img/6~8(로고투명도).png" width="5%" height="5%"  style="float:left"></a>
+            <a href="{{url_for('mypagebp.mypage')}}" style="float:right"><p style="font-size: 20px; margin-left:30px;">마이페이지</p></a><a href="{{url_for('userbp.logout')}}" style="float:right"><p style="font-size: 20px">  로그아웃</p></a>
+            <div id="restdetailinfo" class="col-md-12 col-md-offset-3" id="wrapper" style="overflow : hidden; padding-top: 20px;">
+                    <div id="picture">
+                                   
+                                    <br>
+                    </div>
+                    <div class="" id="detail" style="overflow : hidden; padding-left: 30pt;display: block;float:left;"
+                    ">
+                                    
+                                            <p style="font-size: 70px">{{rest['restName']}}</p>        
+                                            <p style="font-size: 20px">{{rest['sido_name']}}&nbsp;{{rest['sgg_name']}}&nbsp;{{rest['umdong_no']}}</p>                                 
+                                            <p style="font-size: 20px">연락처 : {{rest['num']}}</p>
+                                            <p style="font-size: 20px">영업시간 : {{rest['restTime']}}</p>        
+                                    
+                    </div>
+        </div>
+        </div>    
+    
+        <div class="col-md-12 " id="main-content" width="100%">      
+                <div class="col-md-12 " id="main-content" width="100%" style = "height: auto; overflow : hidden;">
+                        <div id="main-content"><center>
+                                <img src="../static/img/flower3.png" width="50pt" height="50pt">
+                                <img src="../static/img/flower3.png" width="50pt" height="50pt">
+                                <img src="../static/img/flower3.png" width="50pt" height="50pt">
+                            </center></div><br><br>    
+                <img id="mainimg" src="{{rest['imgLink']}}" style="float:left;display:block;" align="left" width="30%">
+
+                <table align="center" style="float:center;" height="100%" width="70%">
+                        <tr align="center" style="font-size: 30px; border-top-color: black;">
+                            <th><p>음식종류</p></th>
+                            <th><p>평점</p></th>
+                            <th><p>식당의 전체적인 분위기</p></th>
+                        </tr>
+                        <tr align="center" style="font-size: 20px;">
+                                <td>
+                                    <p>{{rest['menu']}}</p>
+                                </td>  
+                                <td>
+                                    <table border="1">
+                                            <thead>
+                                                    <tr align="center">
+                                                            <th>일반파</th>
+                                                            <th>미식가파</th>
+                                                            <th>분위기파</th> 
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr align="center" style="font-size: 15px;">
+                                                                <td>{{rest['rest_normal_score']}}</td>
+                                                                <td>{{rest['rest_taste_score']}}</td>
+                                                                <td>{{rest['rest_mood_score']}}</td>
+                                                    </tr>
+                                            </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table border="1" width="50%">
+                                        <tr align="center">
+                                            {%if(sizeCount==None)%}
+                                                <td>아직 평가가 부족합니다</td>
+                                            {%else%}
+                                                <th>크다</th>
+                                                <th>작다</th>
+                                            {%endif%} 
+                                        </tr>
+
+                                        <tr align="center">
+                                            {%if(sizeCount==None)%}
+                                                <td></td>
+                                            {%else%}                                   
+                                                <td id="big">{{sizeCount[0]}}%</td>
+                                                <td id="small">{{sizeCount[1]}}%</td>
+                                            {%endif%}
+                                        </tr>
+                        </table>
+                        <br>
+                        <table border="1" width="50%">
+                            <tr>
+                                {%if(sizeCount==None)%}
+                                    <td>아직 평가가 부족합니다</td>
+                                {%else%}
+                                    <th>시끄럽다</th>
+                                    <th>조용하다</th> 
+                            {%endif%} 
+                            </tr>
+
+                        <tr align="center">
+                            {%if(sizeCount==None)%}
+                                <td></td>
+                            {%else%}                                   
+                                <td id="big">{{soundCount[0]}}%</td>
+                                <td id="small">{{soundCount[1]}}%</td>
+                            {%endif%}
+                        </tr>
+                                
+                        </table>
+                                </td>   
+                        </tr>   
+                </table>
+                
+        </div> 
+        <!--리뷰 남기기 테이블-->
+            <div id="review"  style = "height: auto;">
+                    <div id="main-content"><center>
+                            <img src="../static/img/flower3.png" width="50pt" height="50pt">
+                            <img src="../static/img/flower3.png" width="50pt" height="50pt">
+                            <img src="../static/img/flower3.png" width="50pt" height="50pt">
+                        </center></div><br>           
+                <center><img src="../static/img/8(평점매기기)3.png" width=40% height="40%" >                       
+                <!--맛 점수 남기기-->
+                <div class="col-md-12" id = "tastescore">
+                        <p>
+                            <h6><img src="../static/img/flower2.png" width="30pt" height="30pt"> 식당의 맛은 어떠셨나요?</h6>
+
+                            <div class="form-group">
+                                <label>평가</label>
+                                <select name="tasteScore" id = "tS"  onchange="revEnroll(0);">
+                                    <option value="0">0점</option>
+                                    <option value="10">10점</option>
+                                    <option value="20">20점</option>
+                                    <option value="30">30점</option>
+                                    <option value="40">40점</option>
+                                    <option value="50" selected="selected">50점</option>
+                                    <option value="60">60점</option>
+                                    <option value="70">70점</option>
+                                    <option value="80">80점</option>
+                                    <option value="90">90점</option>
+                                    <option value="100">100점</option>
+                                </select>
+                            </div>
+                        </p>
+                </div>
+                <!--분위기 점수 남기기-->
+                <div class="col-md-12 " id = "moodscore">
+                        <p>
+                            <h6><img src="../static/img/flower2.png" width="30pt" height="30pt">혼자 밥먹기 좋은 분위기 였나요?</h6>
+                            <!--<link rel="stylesheet" href="css/select-theme-default.css" />-->
+                            <div class="form-group">
+                                <label>평가</label>
+                                <select name="moodScore" id = "mS"  onchange="revEnroll(0);">
+                                        <option value="0">0점</option>
+                                        <option value="10">10점</option>
+                                        <option value="20">20점</option>
+                                        <option value="30">30점</option>
+                                        <option value="40">40점</option>
+                                        <option value="50" selected="selected">50점</option>
+                                        <option value="60">60점</option>
+                                        <option value="70">70점</option>
+                                        <option value="80">80점</option>
+                                        <option value="90">90점</option>
+                                        <option value="100">100점</option>
+                                    </select>
+                            </div>
+                        </p>
+                </div>
+                <!--식당 크기, 소리 평가-->
+                <div class="col-md-12" id="otherscore">
+                    <h6><img src="../static/img/flower2.png" width="30pt" height="30pt">이 식당을 평가해주세요.</h6>
+                    <div class="form-group1" id="restsound">
+                        <label class="radio-inline" id="souond">
+                                <input type="radio" name="optionsRadiosInline1" id="optionsRadiosInline1" value="noisy" checked="">시끌벅적한 식당
+                                <input type="radio" name="optionsRadiosInline1" id="optionsRadiosInline2" value="silent">조용한 식당
+                        </label>
+                    </div>
+                    <div class="form-group2" id="restlarge">
+                        <label  id = "size"></label>
+                                <input type="radio" name="optionsRadiosInline2" id="optionsRadiosInline3" value="big" checked="">식당이 크다
+                                <input type="radio" name="optionsRadiosInline2" id="optionsRadiosInline4" value="small">소규모 식당이다
+                        </label>
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                        <h2 style="display:inline;">총 점수 </h2> 
+                        <h3 style="color:rosybrown; display:inline;" id="totalScore"></h3>     
+                    </div>
+                </div></center> 
+                <div id = "reviewbutton">
+                    <center>
+                    
+                    <a onclick="revEnroll(1);"><img src="../static/img/8(평점매기기)4.png" width=20% height="20%"></a>
+                    </center>
+                </div>
+            </div>            
+        </div>        
+  
+</div>
+
+<!-- Footer -->
+<!-- 페이지 하단에 연결 버튼 넣을지말지 선택할 것-->
+
+<footer class="footer text-center">
+        <div class="container">
+
+            <p class="text-muted small mb-0">Copyright &copy; YOONSH.com</p> 
+        </div>
+    </footer>
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Plugin JavaScript -->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    
+    <!-- Custom scripts for this template -->
+    <script src="/static/js/stylish-portfolio.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+
+
+        function revEnroll(num)
+        {
+            var rest_id = "{{rest['rest_id']}}"
+            var user_id = "{{user['mem_id']}}"
+            var user_hbType = "{{user['hb_name']}}"
+            var user_nick = "{{user['mem_nickname']}}"
+            var tasteScore = $('#tS').val();
+            var moodScore = $('#mS').val();
+            var restSound = document.querySelector('input[name="optionsRadiosInline1"]:checked').value;
+            var restSize = document.querySelector('input[name="optionsRadiosInline2"]:checked').value;
+            if(num == 1) {
+                if(confirm(user_nick+" 님 점수가 확실하신가요??")) 
+                {                               
+                    $.get('/review/review/' +rest_id+'/'+user_id+'/'+user_hbType+'/'+tasteScore+'/'+moodScore+'/'+restSize+'/'+restSound+'/'+num, function(data){
+                        alert(data);
+
+                    })
+
+                }
+            }
+            else
+            {
+                    $.get('/review/review/' + rest_id+'/'+user_id+'/'+user_hbType+'/'+tasteScore+'/'+moodScore+'/'+restSize+'/'+restSound+'/'+num, function(data){
+                        //var a = eval(data) 
+                        $('#totalScore').empty();                 
+                        $('#totalScore').append(data+'점');
+                })
+            } 
+        }
+            
+    </script>
+
+</body>
+
+</html>

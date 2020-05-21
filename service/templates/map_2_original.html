@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--버튼 css-->
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- 폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+    <style>
+        .c{font-family: 'Nanum Myeongjo', serif;}
+    </style>
+    <title>{{config.title}}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+    <script>
+    function map_sel_seoul_sigungu(val) {
+        var sido_no = val.sido_no.value
+        var sgg_no = val.sgg_no.value
+        //alert(val.sido_no.value)
+        //alert(val.sgg_no.value)
+        //return;
+        document.location.href = '/user/ranking/' + sido_no + '/' + sgg_no
+    }//
+    </script>
+</head>
+
+<body id="map_2_page">
+
+    <a class="menu-toggle rounded" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+
+    <!-- 왼쪽 사이드바 메뉴 -->
+    <nav id="sidebar-wrapper" class="">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+            <a class="js-scroll-trigger" href="#page-top">슬기로운 혼밥생활</a>
+            </li>
+            {% if 'user_id' in session %}
+                <li class="sidebar-nav-item"><a  class="js-scroll-trigger" href='{{ url_for("userbp.logout") }}'>로그아웃</a></li>
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("mypagebp.mypage") }}'>마이페이지</a></li>
+            {% else %}
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("userbp.login") }}'>로그인</a></li>
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("joinbp.join") }}'>회원가입</a></li>
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("home") }}'> 홈 </a></li>
+            {% endif %}
+                <li class="sidebar-nav-item"><a class="js-scroll-trigger" href='{{ url_for("hbtype_explain") }}'> 혼밥유형 알아보기 </a></li>
+        </ul>
+    </nav>    
+
+    <!-- 상단 이미지 -->
+    <img src="/static/img/honbab_upper.jpg" width=100%>
+    <section id='map_2'>
+
+    <div class="container text-center c">
+        <!-- 상단 텍스트 내용 -->
+        <br><br>
+        <h1>{{config.page_title.MAP_2}}</h1>
+        <br>
+        <h3 class="mx-auto mb-5">: 혼밥하실 세부 서울 지역을 선택해주세요</h3>
+        <br>
+        <!-- 서울 지도 이미지-->
+        <img src="/static/img/seoul_map.jpg" width=50%>
+        <!-- 서울 세부지역 버튼-->
+        {% for each_sigungu in sigungus: %}
+        <form action="" method="get">
+        <button class='btn-1' align='center' style='font-size:22px' type="button" onclick='map_sel_seoul_sigungu(this.form)'>
+            {{each_sigungu['sgg_name']}} 
+        </button>
+        <input type="hidden" name="sido_no" value="{{each_sigungu['sido_no']}}">
+        <input type="hidden" name="sgg_no" value="{{each_sigungu['sgg_no']}}">
+        </form>
+        {% endfor %}
+    </div>
+    </section>
+
+
+    <!--임시임시-->
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+        .tg .tg-l711{border-color:inherit}
+        .tg .tg-us36{border-color:inherit;vertical-align:top}
+    </style>
+    <table class="tg" style="width: 1305px" align='center';>
+        <colgroup>
+        <col style="width: 145px">
+        <col style="width: 145px">
+        <col style="width: 145px">
+        <col style="width: 145px">
+        <col style="width: 145px">
+        <col style="width: 145px">
+        <col style="width: 145px">
+        <col style="width: 145px">
+        <col style="width: 145px">
+        </colgroup>
+        <tr>
+            <th class="tg-l711"></th>
+            <th class="tg-l711"></th>
+            <th class="tg-l711"></th>
+            <th class="tg-l711"></th>
+            <th class="tg-l711"></th>
+            <th class="tg-l711"></th>
+            <th class="tg-l711"></th>
+            <th class="tg-l711"></th>
+            <th class="tg-l711"></th>
+        </tr>
+        <tr>
+            <td class="tg-l711"></td>
+            <td class="tg-l711"></td>
+            <td class="tg-l711" colspan="5" rowspan="2"></td>
+            <td class="tg-l711"></td>
+            <td class="tg-l711"></td>
+        </tr>
+        <tr>
+            <td class="tg-l711"></td>
+            <td class="tg-l711"></td>
+            <td class="tg-l711"></td>
+            <td class="tg-l711"></td>
+        </tr>
+        <tr>
+            <td class="tg-us36"></td>
+            <td class="tg-us36"></td>
+            <td class="tg-us36"></td>
+            <td class="tg-us36"></td>
+            <td class="tg-us36"></td>
+            <td class="tg-us36"></td>
+            <td class="tg-us36"></td>
+            <td class="tg-us36"></td>
+            <td class="tg-us36"></td>
+        </tr>
+    </table>
+
+
+    <!-- 페이지 하단 버튼3개 -->
+    <footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline mb-5">
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-facebook"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="#">
+                        <i class="icon-social-twitter"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white" href="#">
+                        <i class="icon-social-github"></i>
+                    </a>
+                </li>
+            </ul>
+            <p class="text-muted small mb-0">Copyright &copy; Your Website 2018</p> 
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="/static/js/stylish-portfolio.min.js"></script>
+
+</body>
+
+</html>
